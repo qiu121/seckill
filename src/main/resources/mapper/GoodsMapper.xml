@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.qiu121.mapper.GoodsMapper">
+
+    <!--获取商品列表-->
+    <select id="findGoodsVo" resultType="com.github.qiu121.vo.GoodsVO">
+        SELECT g.`id`,
+               `goods_name`,
+               `goods_title`,
+               `goods_img`,
+               `goods_detail`,
+               `goods_price`,
+               `goods_stock`,
+               sg.`seckill_price`,
+               `stock_count`,
+               `start_date`,
+               `end_date`
+
+        FROM `seckill`.`goods` AS g
+                 LEFT JOIN `seckill`.`seckill_goods` AS sg ON g.`id` = sg.`goods_id`
+
+    </select>
+    <!--获取商品详情-->
+    <select id="findGoodsVoByGoodsId" resultType="com.github.qiu121.vo.GoodsVO">
+        SELECT g.`id`,
+               `goods_name`,
+               `goods_title`,
+               `goods_img`,
+               `goods_detail`,
+               `goods_price`,
+               `goods_stock`,
+               sg.`seckill_price`,
+               `stock_count`,
+               `start_date`,
+               `end_date`
+
+        FROM `seckill`.`goods` AS g
+                 LEFT JOIN `seckill`.`seckill_goods` AS sg ON g.`id` = sg.`goods_id`
+        WHERE g.`id` = #{goodsId}
+
+    </select>
+</mapper>
