@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.qiu121.entity.Order;
 import com.github.qiu121.entity.User;
 import com.github.qiu121.vo.GoodsVO;
+import com.github.qiu121.vo.OrderDetailVO;
 
 /**
  * @author to_Geek
@@ -19,4 +20,6 @@ public interface IOrderService extends IService<Order> {
      * @return 订单
      */
     Order seckill(User user, GoodsVO goodsVO);
+
+    OrderDetailVO detail(Long orderId);
 }

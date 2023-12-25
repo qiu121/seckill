@@ -23,9 +23,13 @@ public enum ResultEnum {
 
     // 秒杀模块 5005XX
     EMPTY_STOCK(50501, "库存不足"),
-    REPEATED_BUY(50501, "该商品每人限购一件")
+    REPEATED_BUY(50501, "该商品每人限购一件"),
+
+    // 订单模块 5006XX
+    ORDER_NOT_EXIST(50601, "订单不存在")
+
     ;
     private final Integer code;
     private final String message;
 
-    }
+}

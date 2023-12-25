@@ -6,11 +6,13 @@ import com.github.qiu121.entity.Order;
 import com.github.qiu121.entity.SeckillGoods;
 import com.github.qiu121.entity.SeckillOrder;
 import com.github.qiu121.entity.User;
+import com.github.qiu121.mapper.GoodsMapper;
 import com.github.qiu121.mapper.OrderMapper;
 import com.github.qiu121.mapper.SeckillGoodsMapper;
 import com.github.qiu121.mapper.SeckillOrderMapper;
 import com.github.qiu121.service.IOrderService;
 import com.github.qiu121.vo.GoodsVO;
+import com.github.qiu121.vo.OrderDetailVO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderMapper orderMapper;
     @Resource
     private SeckillOrderMapper seckillOrderMapper;
+    @Resource
+    private GoodsMapper goodsMapper;
 
     /**
      * 秒杀
@@ -78,5 +82,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         seckillOrderMapper.insert(seckillOrder);
 
         return order;
+    }
+
+    /**
+     * 订单详情
+     *
+     * @param orderId 订单id
+     * @return 订单详情
+     */
+    @Override
+    public OrderDetailVO detail(Long orderId) {
+        Order order = orderMapper.selectById(orderId);
+
+        GoodsVO goodsVO = goodsMapper.findGoodsVoByGoodsId(order.getGoodsId());
+        OrderDetailVO orderDetailVO = new OrderDetailVO();
+        orderDetailVO.setGoodsVO(goodsVO);
+        orderDetailVO.setOrder(order);
+
+        return orderDetailVO;
     }
 }
